@@ -23,7 +23,8 @@ public class ActivityStart extends AppCompatActivity{
                     case R.id.navi_start:
                         break;
                     case R.id.navi_mustsee:
-                        break;
+                        Intent intent_map = new Intent(ActivityStart.this, MapsActivity.class);
+                        startActivity(intent_map);
                     case R.id.navi_timetable:
                         Intent intent_timetable = new Intent(ActivityStart.this, MainActivity.class);
                         startActivity(intent_timetable);

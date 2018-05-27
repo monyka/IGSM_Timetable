@@ -25,7 +25,8 @@ public class ActivityDay extends Activity {
                         startActivity(intent_start);
                         break;
                     case R.id.navi_mustsee:
-                        break;
+                        Intent intent_map = new Intent(ActivityDay.this, MapsActivity.class);
+                        startActivity(intent_map);
                     case R.id.navi_timetable:
                         Intent intent_timetable = new Intent(ActivityDay.this, MainActivity.class);
                         startActivity(intent_timetable);

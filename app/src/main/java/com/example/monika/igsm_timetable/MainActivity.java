@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent_start);
                         break;
                     case R.id.navi_mustsee:
-                        break;
+                        Intent intent_map = new Intent(MainActivity.this, MapsActivity.class);
+                        startActivity(intent_map);
                     case R.id.navi_timetable:
                         break;
                 }
