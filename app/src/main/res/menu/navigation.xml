@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navi_start"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Start"/>
+
+    <item
+        android:id="@+id/navi_mustsee"
+        android:icon="@drawable/ic_location_on_black_24dp"
+        android:title="Must See"/>
+
+    <item
+        android:id="@+id/navi_timetable"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:title="Timetable"/>
+
+</menu>
