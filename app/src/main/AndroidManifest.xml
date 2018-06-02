@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityDay" />
         <activity android:name=".ActivityStart" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -39,7 +38,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".DayDetail"></activity>
     </application>
 
 </manifest>

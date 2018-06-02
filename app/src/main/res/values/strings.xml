@@ -1,4 +1,145 @@
 <resources>
     <string name="app_name">IGSM_Timetable</string>
     <string name="title_activity_maps">Map</string>
+
+    <string-array name="Timetable">
+        <item> Monday </item>
+        <item> Tuesday </item>
+        <item> Wednesday </item>
+        <item> Thursday </item>
+        <item> Friday </item>
+        <item> Saturday </item>
+        <item> Sunday </item>
+    </string-array>
+
+    <string-array name="Monday">
+        <item>Breakfast</item>
+        <item>Opening Ceremony</item>
+        <item>Lectures</item>
+        <item>Lunch</item>
+        <item>Sposors Lectures</item>
+        <item>International Evening</item>
+    </string-array>
+
+    <string-array name="Tuesday">
+        <item>Breakfast</item>
+        <item>Presentation+Posters Session</item>
+        <item>Lunch</item>
+        <item>City Game</item>
+        <item>Party</item>
+    </string-array>
+
+    <string-array name="Wednesday">
+        <item>Breakfast</item>
+        <item>Excursion</item>
+        <item>Sport Time</item>
+        <item>Local Evening</item>
+    </string-array>
+
+    <string-array name="Thursday">
+        <item>Breakfast</item>
+        <item>Workshops</item>
+        <item>Break</item>
+        <item>Lunch</item>
+        <item>Museum</item>
+        <item>Clubbing</item>
+    </string-array>
+
+    <string-array name="Friday">
+        <item>Breakfast</item>
+        <item>General Assembly</item>
+        <item>Grand Ball</item>
+    </string-array>
+
+    <string-array name="Saturday">
+        <item>Breakfast</item>
+        <item>Check-out</item>
+    </string-array>
+
+    <string-array name="time1">
+        <item>8:55AM - 9:50AM</item>
+        <item>9:50AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+        <item>11:15AM - 1:05PM</item>
+        <item>1:05PM - 2:00PM</item>
+        <item>2:00PM - 2:55PM</item>
+    </string-array>
+
+    <string-array name="time2">
+        <item>8:55AM - 9:50AM</item>
+        <item>9:50AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+        <item>11:15AM - 12:10PM</item>
+        <item>12:10PM - 1:05PM</item>
+    </string-array>
+
+    <string-array name="time3">
+        <item>8:55AM - 9:50AM</item>
+        <item>9:50AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+        <item>11:15AM - 12:10PM</item>
+    </string-array>
+
+    <string-array name="time4">
+        <item>8:55AM - 9:50AM</item>
+        <item>9:50AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+        <item>11:15AM - 12:10PM</item>
+        <item>12:10PM - 1:05PM</item>
+    </string-array>
+
+    <string-array name="time5">
+        <item>8:55AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+        <item>11:15AM - 12:10PM</item>
+    </string-array>
+
+    <string-array name="time6">
+        <item>8:55AM - 10:45AM</item>
+        <item>10:45AM - 11:15AM</item>
+    </string-array>
+
+    <string-array name="place1">
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+    </string-array>
+
+    <string-array name="place2">
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+    </string-array>
+
+    <string-array name="place3">
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+    </string-array>
+
+    <string-array name="place4">
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+    </string-array>
+
+    <string-array name="place5">
+        <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
+    </string-array>
+
+    <string-array name="place6">
+    <item>PW</item>
+    <item>PW</item>
+    </string-array>
+
 </resources>
