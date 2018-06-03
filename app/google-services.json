@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "341755631238",
+    "firebase_url": "https://igsmtimetable-e74d2.firebaseio.com",
+    "project_id": "igsmtimetable-e74d2",
+    "storage_bucket": "igsmtimetable-e74d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341755631238:android:463920537f088594",
+        "android_client_info": {
+          "package_name": "com.example.monika.igsm_timetable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341755631238-orv7kp3t36h3v823epc6etck37vk1d5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.monika.igsm_timetable",
+            "certificate_hash": "714edd6e8d604d4c7927a34ee28e8e76986c48fe"
+          }
+        },
+        {
+          "client_id": "341755631238-2daurs3p19pve1hprb0f64aislq8n0i1.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "341755631238-2daurs3p19pve1hprb0f64aislq8n0i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN7wdvA_RXkP5uHc7tuw36kgpUUO1nDwg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341755631238-2daurs3p19pve1hprb0f64aislq8n0i1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
