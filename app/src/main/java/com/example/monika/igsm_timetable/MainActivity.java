@@ -1,6 +1,5 @@
 package com.example.monika.igsm_timetable;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,20 +13,65 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.example.monika.igsm_timetable.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    //klasa trzymająca dni tygodnia, które są w formie listy i bedą uzupełniane danymi z firebase
+    public class DayOfWeek {
+        public String Day;
+
+    //konstruktor
+    public DayOfWeek(String Day) {
+            this.Day = Day;
+        }
+    }
+
+    //deklaracja listy oraz tablicy potrzebnej do wprowadzenia danych z firebase
+    private ListView ListOfDays;
+    private ArrayList<DayOfWeek> arrayOfDays = new ArrayList<>();
+
     private Toolbar toolbar;
-    private ListView listView;
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY;
+
+    //KLASA adapter z ustalonym stylem listy umieszczajacy obiekty w liscie
+    public class DaysAdapter extends ArrayAdapter<DayOfWeek> {
+        public DaysAdapter(Context context, ArrayList<DayOfWeek> days) {
+            super(context, 0, days);
+        }
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                // Get the data item for this position
+                DayOfWeek day = getItem(position);
+
+                // Check if an existing view is being reused, otherwise inflate the view
+                if (convertView == null) {
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_main_single_item, parent, false);
+                }
+
+                // Lookup view for data population
+                TextView tvDayName = (TextView) convertView.findViewById(R.id.tvDayName);
+
+                // Populate the data into the template view using the data object
+                tvDayName.setText(day.Day);
+
+                // Return the completed view to render on screen
+                return convertView;
+            }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         setupListView();
 
+        //Dolny pasek nawigacyjny
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -48,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent_start);
                         break;
                     case R.id.navi_mustsee:
-                        Intent intent_map = new Intent(MainActivity.this, MapsActivity.class);
+                        Intent intent_map = new Intent(MainActivity.this, ActivityMaps.class);
                         startActivity(intent_map);
                     case R.id.navi_timetable:
                         break;
@@ -58,25 +103,79 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //ustalenie wygladu ekranu - toolbaru tytulowego oraz listy z dniami tygodnia
     private void setupUIViews(){
         toolbar = (Toolbar)findViewById(R.id.ToolbarMain);
-        listView = (ListView)findViewById(R.id.lvMain);
+        //ListView = (ListView)findViewById(R.id.lvMain);
+        ListOfDays = (ListView)findViewById(R.id.lvMain);
         sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);
     }
 
+    //zainicjowanie toolbaru tytulowego
     private void initToolbar(){
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Timetable App");
+        getSupportActionBar().setTitle(" IGSM Timetable");
     }
 
     private void setupListView(){
 
-        String[] title = getResources().getStringArray(R.array.Timetable);
+        //Referencja do firebase na root o nazwie "Week"
+        //PO ZMIANIE STRUKTURY BAZY NA TAKA ZEBY KAZDY DZIEN TYGODNIA BYL NOWA GALEZIA W BAZIE TRZEBA BEDZIE ZROBIC ZMIANY
+        //W KODZIE. TZZ MAJAC REF NA NP.FRIDAY ZEBY ODNIESC SIE DO POSZCZEGOLNYCH ACTIVITIES Z FRIDAY TRZEBA ZROBIC:
+        // String key = dataSnapshot.getKey(); ,
+        DatabaseReference DayOfWeekRef = FirebaseDatabase.getInstance().getReference("Week");
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, title);
-        listView.setAdapter(simpleAdapter);
+        //pobranie view z xml
+        ListOfDays = (ListView)findViewById(R.id.lvMain);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //utworzenie adaptera o typie DaysAdapter
+        final DaysAdapter arrayAdapterDays = new DaysAdapter(this, arrayOfDays);
+
+        //ustawienie adaptera w liscie
+        ListOfDays.setAdapter(arrayAdapterDays);
+
+        //pobieranie danych z bazy do listy
+        DayOfWeekRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                //String value = dataSnapshot.getValue(String.class);
+                //Iterable<DataSnapshot> activities = dataSnapshot.getChildren();
+
+                //System.out.println(dataSnapshot.getKey());
+
+                String day = dataSnapshot.getValue(String.class);
+                //String value = (String)activities.iterator().next().getValue();
+                // value2 = (String)activities.iterator().next().getValue();
+                //String key = dataSnapshot.getKey();
+
+                arrayOfDays.add(new DayOfWeek(day));
+                // mUsername.add(value);
+
+                //Notifies the attached observers that the underlying data has been changed
+                // and any View reflecting the data set should refresh itself.
+                arrayAdapterDays.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+        ListOfDays.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch(position){
@@ -110,55 +209,14 @@ public class MainActivity extends AppCompatActivity {
                         sharedPreferences.edit().putString(SEL_DAY, "Saturday").apply();
                         break;
                     }
+                    case 6: {
+                        startActivity(new Intent(MainActivity.this, DayDetail.class));
+                        sharedPreferences.edit().putString(SEL_DAY, "Sunday").apply();
+                        break;
+                    }
                     default:break;
                 }
             }
         });
     }
-
-    public class SimpleAdapter extends BaseAdapter{
-
-        private Context mContext;
-        private LayoutInflater layoutInflater;
-        private TextView title;
-        private String[] titleArray;
-
-
-        public SimpleAdapter(Context context, String[] title){
-            mContext = context;
-            titleArray = title;
-            layoutInflater = LayoutInflater.from(context);
-        }
-
-
-        @Override
-        public int getCount() {
-            return titleArray.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return titleArray[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null){
-                convertView = layoutInflater.inflate(R.layout.single_timetable_item, null);
-            }
-
-            title = (TextView)convertView.findViewById(R.id.tvDayName);
-
-            title.setText(titleArray[position]);
-
-            return convertView;
-
-        }
-    }
-
 }

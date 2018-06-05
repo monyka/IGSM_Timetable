@@ -11,40 +11,71 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.monika.igsm_timetable.Utils.LetterImageView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 //import com.example.monika.igsm_timetable.Utils.LetterImageView;
 
-public class DayDetail extends AppCompatActivity {
+public class DayDetail extends AppCompatActivity implements ValueEventListener {
 
-    private ListView listView;
+    private ListView listOfActivities;
+    private ArrayList<DayActivity> DayActivities = new ArrayList<>();
+
     private android.support.v7.widget.Toolbar toolbar;
-    public static String[] Monday;
-    public static String[] Tuesday;
-    public static String[] Wednesday;
-    public static String[] Thursday;
-    public static String[] Friday;
-    public static String[] Saturday;
-    public static String[] Time1;
-    public static String[] Time2;
-    public static String[] Time3;
-    public static String[] Time4;
-    public static String[] Time5;
-    public static String[] Time6;
-    public static String[] Place1;
-    public static String[] Place2;
-    public static String[] Place3;
-    public static String[] Place4;
-    public static String[] Place5;
-    public static String[] Place6;
 
-    private String[] PreferredDay;
-    private String[] PreferredTime;
-    private String[] PreferredPlace;
+    //klasa użytkownika dla ktorej pozniej tworzone sa jej obiekty - czy jakies dane
+    public class DayActivity{
+        public String activity_name;
+        public String hours;
+        public String place;
+
+
+        public DayActivity(String name, String hometown, String place) {
+            this.activity_name = name;
+            this.hours = hometown;
+            this.place = place;
+        }
+    }
+
+    //adapter dla danych Day
+    public class ActivitiesAdapter extends ArrayAdapter<DayActivity> {
+        public ActivitiesAdapter(Context context, ArrayList<DayActivity> users) {
+            super(context, 0, users);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            DayActivity user = getItem(position);
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_day_detail_single_item, parent, false);
+            }
+            // Lookup view for data population
+            TextView tvName = (TextView) convertView.findViewById(R.id.tvActivityDayDetails);
+            TextView tvHome = (TextView) convertView.findViewById(R.id.tvTimeDayDetail);
+            TextView tvPlace = (TextView) convertView.findViewById(R.id.tvPlace);
+
+
+            // Populate the data into the template view using the data object
+            tvName.setText(user.activity_name);
+            tvHome.setText(user.hours);
+            tvPlace.setText(user.place);
+            // Return the completed view to render on screen
+            return convertView;
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +86,7 @@ public class DayDetail extends AppCompatActivity {
         initToolbar();
         setupListView();
 
+        //Dolny pasek nawigacyjny
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -65,7 +97,7 @@ public class DayDetail extends AppCompatActivity {
                         startActivity(intent_start);
                         break;
                     case R.id.navi_mustsee:
-                        Intent intent_map = new Intent(DayDetail.this, MapsActivity.class);
+                        Intent intent_map = new Intent(DayDetail.this, ActivityMaps.class);
                         startActivity(intent_map);
                     case R.id.navi_timetable:
                         Intent intent_timetable = new Intent(DayDetail.this, MainActivity.class);
@@ -77,9 +109,8 @@ public class DayDetail extends AppCompatActivity {
         });
     }
 
-
     private void setupUIViews(){
-        listView = (ListView)findViewById(R.id.lvDayDetail);
+        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarDayDetail);
     }
 
@@ -89,116 +120,73 @@ public class DayDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+
     //pobieranie aktywnosci, czasu i miejsca
     private void setupListView(){
 
-        Monday = getResources().getStringArray(R.array.Monday);
-        Tuesday = getResources().getStringArray(R.array.Tuesday);
-        Wednesday = getResources().getStringArray(R.array.Wednesday);
-        Thursday = getResources().getStringArray(R.array.Thursday);
-        Friday = getResources().getStringArray(R.array.Friday);
-        Saturday = getResources().getStringArray(R.array.Saturday);
-
-        Time1 = getResources().getStringArray(R.array.time1);
-        Time2 = getResources().getStringArray(R.array.time2);
-        Time3 = getResources().getStringArray(R.array.time3);
-        Time4 = getResources().getStringArray(R.array.time4);
-        Time5 = getResources().getStringArray(R.array.time5);
-        Time6 = getResources().getStringArray(R.array.time6);
-
-        Place1 = getResources().getStringArray(R.array.place1);
-        Place2 = getResources().getStringArray(R.array.place2);
-        Place3 = getResources().getStringArray(R.array.place3);
-        Place4 = getResources().getStringArray(R.array.place4);
-        Place5 = getResources().getStringArray(R.array.place5);
-        Place6 = getResources().getStringArray(R.array.place6);
-
         String selected_day = MainActivity.sharedPreferences.getString(MainActivity.SEL_DAY, null);
 
-        if(selected_day.equalsIgnoreCase("Monday")){
-            PreferredDay = Monday;
-            PreferredTime = Time1;
-            PreferredPlace = Place1;
-        }else if(selected_day.equalsIgnoreCase("Tuesday")){
-            PreferredDay = Tuesday;
-            PreferredTime = Time2;
-            PreferredPlace = Place2;
-        }else if(selected_day.equalsIgnoreCase("Wednesday")){
-            PreferredDay = Wednesday;
-            PreferredTime = Time3;
-            PreferredPlace = Place3;
-        }else if(selected_day.equalsIgnoreCase("Thursday")){
-            PreferredDay = Thursday;
-            PreferredTime = Time4;
-            PreferredPlace = Place4;
-        }else if(selected_day.equalsIgnoreCase("Friday")){
-            PreferredDay = Friday;
-            PreferredTime = Time5;
-            PreferredPlace = Place5;
-        }else{
-            PreferredDay = Saturday;
-            PreferredTime = Time6;
-            PreferredPlace = Place6;
-        }
+        DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(DayDetail.this, PreferredDay, PreferredTime, PreferredPlace);
-        listView.setAdapter(simpleAdapter);
+        //lista
+        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
 
-    }
+        //adapter
+//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUsername);
+        final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, DayActivities);
 
-    public class SimpleAdapter extends BaseAdapter {
+        //ustawienie listy do adaptera
+        listOfActivities.setAdapter(listOfActivitiesAdapter);
 
-        private Context mContext;
-        private LayoutInflater layoutInflater;
-        private TextView activity, time, place;
-        private String[] ActivityArray;
-        private String[] timeArray;
-        private String[] placeArray;
-        private LetterImageView letterImageView;
+        //pobieranie danych z bazy do listy
+        DayActivitiesData.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                //String value = dataSnapshot.getValue(String.class);
+                Iterable<DataSnapshot> activities = dataSnapshot.getChildren();
 
-        public SimpleAdapter(Context context, String[] activityArray, String[] timeArray, String[] placeArray){
-            mContext = context;
-            this.ActivityArray = activityArray;
-            this.timeArray = timeArray;
-            this.placeArray = placeArray;
-            layoutInflater = LayoutInflater.from(context);
-        }
+                System.out.println(dataSnapshot.getKey());
 
-        @Override
-        public int getCount() {
-            return ActivityArray.length;
-        }
+                String hours = (String)activities.iterator().next().getValue();
+                String place = (String)activities.iterator().next().getValue();
 
-        @Override
-        public Object getItem(int position) {
-            return ActivityArray[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null){
-                convertView = layoutInflater.inflate(R.layout.day_detail_single_item, null);
+                String key = dataSnapshot.getKey();
+                DayActivities.add(new DayActivity(key, hours, place));
+//                mUsername.add(value);
+                listOfActivitiesAdapter.notifyDataSetChanged();
             }
 
-            activity = (TextView)convertView.findViewById(R.id.tvActivityDayDetails);
-            time = (TextView)convertView.findViewById(R.id.tvTimeDayDetail);
-            place = (TextView)convertView.findViewById(R.id.tvPlace);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
-            activity.setText(ActivityArray[position]);
-            time.setText(timeArray[position]);
-            place.setText(placeArray[position]);
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-            return convertView;
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
+
+
+    //powrot do poprzedniego ekarnu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
