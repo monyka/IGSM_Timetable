@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initToolbar(){
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Timetable App");
+        getSupportActionBar().setTitle("Timetable");
     }
 
     private void setupListView(){
