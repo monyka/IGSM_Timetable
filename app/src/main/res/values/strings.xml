@@ -138,8 +138,8 @@
     </string-array>
 
     <string-array name="place6">
-    <item>PW</item>
-    <item>PW</item>
+        <item>PW</item>
+        <item>PW</item>
     </string-array>
 
 </resources>
