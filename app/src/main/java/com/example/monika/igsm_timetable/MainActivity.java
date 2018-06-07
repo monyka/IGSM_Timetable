@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     public static SharedPreferences sharedPreferences;
-    public static String SEL_DAY;
+    public static String SEL_DAY = "sel_day";
+    public static final String SEL_ACT = "sel_act";
+
 
     //KLASA adapter z ustalonym stylem listy umieszczajacy obiekty w liscie
     public class DaysAdapter extends ArrayAdapter<DayOfWeek> {
@@ -134,6 +136,55 @@ public class MainActivity extends AppCompatActivity {
         //ustawienie adaptera w liscie
         ListOfDays.setAdapter(arrayAdapterDays);
 
+        ListOfDays.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                startActivity(new Intent(MainActivity.this, ActivityDay.class));
+                TextView DayName = view.findViewById(R.id.tvDayName);
+                MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_ACT, DayName.getText().toString()).apply();
+
+//                switch(position){
+//                    case 0: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Monday").apply();
+//                        break;
+//                    }
+//                    case 1: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Tuesday").apply();
+//                        break;
+//                    }
+//                    case 2: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Wednesday").apply();
+//                        break;
+//                    }
+//                    case 3: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Thursday").apply();
+//                        break;
+//                    }
+//                    case 4: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Friday").apply();
+//                        break;
+//                    }
+//                    case 5: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Saturday").apply();
+//                        break;
+//                    }
+//                    case 6: {
+//                        startActivity(new Intent(MainActivity.this, ActivityDay.class));
+//                        sharedPreferences.edit().putString(SEL_DAY, "Sunday").apply();
+//                        break;
+//                    }
+//                    default:break;
+//                }
+            }
+        });
+
         //pobieranie danych z bazy do listy
         DayOfWeekRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -174,49 +225,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        ListOfDays.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch(position){
-                    case 0: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Monday").apply();
-                        break;
-                    }
-                    case 1: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Tuesday").apply();
-                        break;
-                    }
-                    case 2: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Wednesday").apply();
-                        break;
-                    }
-                    case 3: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Thursday").apply();
-                        break;
-                    }
-                    case 4: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Friday").apply();
-                        break;
-                    }
-                    case 5: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Saturday").apply();
-                        break;
-                    }
-                    case 6: {
-                        startActivity(new Intent(MainActivity.this, DayDetail.class));
-                        sharedPreferences.edit().putString(SEL_DAY, "Sunday").apply();
-                        break;
-                    }
-                    default:break;
-                }
-            }
-        });
     }
 }

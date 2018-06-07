@@ -3,6 +3,7 @@ package com.example.monika.igsm_timetable;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,12 +28,15 @@ import java.util.ArrayList;
 
 //import com.example.monika.igsm_timetable.Utils.LetterImageView;
 
-public class DayDetail extends AppCompatActivity implements ValueEventListener {
+public class ActivityDay extends AppCompatActivity implements ValueEventListener {
 
-    private ListView listOfActivities;
+    private ListView ListOfActivities;
     private ArrayList<DayActivity> DayActivities = new ArrayList<>();
 
     private android.support.v7.widget.Toolbar toolbar;
+
+    public static SharedPreferences sharedPreferences;
+
 
     //klasa użytkownika dla ktorej pozniej tworzone sa jej obiekty - czy jakies dane
     public class DayActivity{
@@ -77,6 +82,8 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
     }
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,14 +100,14 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.navi_start:
-                        Intent intent_start = new Intent(DayDetail.this, ActivityStart.class);
+                        Intent intent_start = new Intent(ActivityDay.this, ActivityStart.class);
                         startActivity(intent_start);
                         break;
                     case R.id.navi_mustsee:
-                        Intent intent_map = new Intent(DayDetail.this, ActivityMaps.class);
+                        Intent intent_map = new Intent(ActivityDay.this, ActivityMaps.class);
                         startActivity(intent_map);
                     case R.id.navi_timetable:
-                        Intent intent_timetable = new Intent(DayDetail.this, MainActivity.class);
+                        Intent intent_timetable = new Intent(ActivityDay.this, MainActivity.class);
                         startActivity(intent_timetable);
                         break;
                 }
@@ -110,7 +117,7 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
     }
 
     private void setupUIViews(){
-        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
+        ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarDayDetail);
     }
 
@@ -129,14 +136,31 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
         DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
 
         //lista
-        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
+        ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
 
         //adapter
 //        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUsername);
         final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, DayActivities);
 
         //ustawienie listy do adaptera
-        listOfActivities.setAdapter(listOfActivitiesAdapter);
+        ListOfActivities.setAdapter(listOfActivitiesAdapter);
+
+        ListOfActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                startActivity(new Intent(ActivityDay.this, ActivityActivityDetails.class));
+                TextView actName = view.findViewById(R.id.tvActivityDayDetails);
+                MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_ACT, actName.getText().toString()).apply();
+            }
+        });
+
+        //sortowanie
+        //TRZEBA ZROBIC COS TAKIEGO JAK selected_day ale dla activity (selected_activity)
+        //Query dayActivies = DayActivitiesData.child("Days").child(selected_day).child(selected_activity).childorderByChild("id");
+
+
+
 
         //pobieranie danych z bazy do listy
         DayActivitiesData.addChildEventListener(new ChildEventListener() {
@@ -148,12 +172,14 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
 
                 System.out.println(dataSnapshot.getKey());
 
+                String desc = (String)activities.iterator().next().getValue();
                 String hours = (String)activities.iterator().next().getValue();
+                String id = (String)activities.iterator().next().getValue();
                 String place = (String)activities.iterator().next().getValue();
 
                 String key = dataSnapshot.getKey();
+
                 DayActivities.add(new DayActivity(key, hours, place));
-//                mUsername.add(value);
                 listOfActivitiesAdapter.notifyDataSetChanged();
             }
 
@@ -177,6 +203,7 @@ public class DayDetail extends AppCompatActivity implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+
 
     }
 
