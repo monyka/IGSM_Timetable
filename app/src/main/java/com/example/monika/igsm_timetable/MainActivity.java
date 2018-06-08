@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<DayOfWeek> arrayOfDays = new ArrayList<>();
 
     private Toolbar toolbar;
+
+    //SHARED PREFERENCES
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY = "sel_day";
     public static final String SEL_ACT = "sel_act";
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(new Intent(MainActivity.this, ActivityDay.class));
                 TextView DayName = view.findViewById(R.id.tvDayName);
-                MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_ACT, DayName.getText().toString()).apply();
+                MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_DAY, DayName.getText().toString()).apply();
 
 //                switch(position){
 //                    case 0: {

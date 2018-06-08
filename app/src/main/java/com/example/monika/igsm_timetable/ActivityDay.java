@@ -22,11 +22,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-//import com.example.monika.igsm_timetable.Utils.LetterImageView;
 
 public class ActivityDay extends AppCompatActivity implements ValueEventListener {
 
@@ -35,10 +35,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 
     private android.support.v7.widget.Toolbar toolbar;
 
-    public static SharedPreferences sharedPreferences;
-
-
-    //klasa użytkownika dla ktorej pozniej tworzone sa jej obiekty - czy jakies dane
+      //klasa użytkownika dla ktorej pozniej tworzone sa jej obiekty - czy jakies dane
     public class DayActivity{
         public String activity_name;
         public String hours;
@@ -80,9 +77,6 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
             return convertView;
         }
     }
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,13 +121,14 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
     //pobieranie aktywnosci, czasu i miejsca
     private void setupListView(){
 
         String selected_day = MainActivity.sharedPreferences.getString(MainActivity.SEL_DAY, null);
+        String selected_activity = MainActivity.sharedPreferences.getString(MainActivity.SEL_ACT, null);
 
         DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
+        DatabaseReference ActivitiesDetailsData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day).child(selected_activity);
 
         //lista
         ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
@@ -157,9 +152,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 
         //sortowanie
         //TRZEBA ZROBIC COS TAKIEGO JAK selected_day ale dla activity (selected_activity)
-        //Query dayActivies = DayActivitiesData.child("Days").child(selected_day).child(selected_activity).childorderByChild("id");
-
-
+        //Query dayActivies = DayActivitiesData.child("Days").child(selected_day).child(selected_activity).orderByChild("id");
 
 
         //pobieranie danych z bazy do listy

@@ -1,7 +1,8 @@
 package com.example.monika.igsm_timetable;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class ActivityActivityDetails extends AppCompatActivity {
