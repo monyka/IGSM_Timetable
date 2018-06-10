@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     //deklaracja listy oraz tablicy potrzebnej do wprowadzenia danych z firebase
     private ListView ListOfDays;
-    private ArrayList<DayOfWeek> arrayOfDays = new ArrayList<>();
+    private ArrayList<DayOfWeek> DaysOfWeekArray = new ArrayList<>();
 
     private Toolbar toolbar;
 
@@ -127,13 +128,22 @@ public class MainActivity extends AppCompatActivity {
         //PO ZMIANIE STRUKTURY BAZY NA TAKA ZEBY KAZDY DZIEN TYGODNIA BYL NOWA GALEZIA W BAZIE TRZEBA BEDZIE ZROBIC ZMIANY
         //W KODZIE. TZZ MAJAC REF NA NP.FRIDAY ZEBY ODNIESC SIE DO POSZCZEGOLNYCH ACTIVITIES Z FRIDAY TRZEBA ZROBIC:
         // String key = dataSnapshot.getKey(); ,
+
+        String selected_day = MainActivity.sharedPreferences.getString(SEL_DAY, null);
+
+        DatabaseReference DayOfWeekRef2 = FirebaseDatabase.getInstance().getReference("Days");
+
+        final Query dayQuery = DayOfWeekRef2.orderByChild("id");
+
         DatabaseReference DayOfWeekRef = FirebaseDatabase.getInstance().getReference("Week");
+
+
 
         //pobranie view z xml
         ListOfDays = (ListView)findViewById(R.id.lvMain);
 
         //utworzenie adaptera o typie DaysAdapter
-        final DaysAdapter arrayAdapterDays = new DaysAdapter(this, arrayOfDays);
+        final DaysAdapter arrayAdapterDays = new DaysAdapter(this, DaysOfWeekArray);
 
         //ustawienie adaptera w liscie
         ListOfDays.setAdapter(arrayAdapterDays);
@@ -188,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //pobieranie danych z bazy do listy
-        DayOfWeekRef.addChildEventListener(new ChildEventListener() {
+        dayQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -197,13 +207,15 @@ public class MainActivity extends AppCompatActivity {
 
                 //System.out.println(dataSnapshot.getKey());
 
-                String day = dataSnapshot.getValue(String.class);
+                //String day = dataSnapshot.getValue(String.class);
+                String day2 = dataSnapshot.getKey();
+
+
                 //String value = (String)activities.iterator().next().getValue();
                 // value2 = (String)activities.iterator().next().getValue();
                 //String key = dataSnapshot.getKey();
 
-                arrayOfDays.add(new DayOfWeek(day));
-                // mUsername.add(value);
+                DaysOfWeekArray.add(new DayOfWeek(day2));
 
                 //Notifies the attached observers that the underlying data has been changed
                 // and any View reflecting the data set should refresh itself.

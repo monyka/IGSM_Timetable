@@ -3,7 +3,6 @@ package com.example.monika.igsm_timetable;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -31,7 +30,7 @@ import java.util.ArrayList;
 public class ActivityDay extends AppCompatActivity implements ValueEventListener {
 
     private ListView ListOfActivities;
-    private ArrayList<DayActivity> DayActivities = new ArrayList<>();
+    private ArrayList<DayActivity> DayActivitiesArray = new ArrayList<>();
 
     private android.support.v7.widget.Toolbar toolbar;
 
@@ -130,12 +129,14 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
         DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
         DatabaseReference ActivitiesDetailsData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day).child(selected_activity);
 
+        final Query dayActivityQuery = DayActivitiesData.orderByChild("id");
+
         //lista
         ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
 
         //adapter
 //        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUsername);
-        final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, DayActivities);
+        final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, DayActivitiesArray);
 
         //ustawienie listy do adaptera
         ListOfActivities.setAdapter(listOfActivitiesAdapter);
@@ -154,26 +155,28 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
         //TRZEBA ZROBIC COS TAKIEGO JAK selected_day ale dla activity (selected_activity)
         //Query dayActivies = DayActivitiesData.child("Days").child(selected_day).child(selected_activity).orderByChild("id");
 
-
         //pobieranie danych z bazy do listy
-        DayActivitiesData.addChildEventListener(new ChildEventListener() {
+        dayActivityQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 //String value = dataSnapshot.getValue(String.class);
                 Iterable<DataSnapshot> activities = dataSnapshot.getChildren();
 
-                System.out.println(dataSnapshot.getKey());
+//                System.out.println(dataSnapshot.getKey());
+//                System.out.println(activities);
 
-                String desc = (String)activities.iterator().next().getValue();
-                String hours = (String)activities.iterator().next().getValue();
-                String id = (String)activities.iterator().next().getValue();
-                String place = (String)activities.iterator().next().getValue();
+                if(!dataSnapshot.getKey().equals("id")) {
+                    String desc = (String) activities.iterator().next().getValue();
+                    String hours = (String) activities.iterator().next().getValue();
+                    String id = (String) activities.iterator().next().getValue();
+                    String place = (String) activities.iterator().next().getValue();
 
-                String key = dataSnapshot.getKey();
+                    String key = dataSnapshot.getKey();
 
-                DayActivities.add(new DayActivity(key, hours, place));
-                listOfActivitiesAdapter.notifyDataSetChanged();
+                    DayActivitiesArray.add(new DayActivity(key, hours, place));
+                    listOfActivitiesAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
