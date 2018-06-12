@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY = "sel_day";
     public static final String SEL_ACT = "sel_act";
+    public static final String SEL_ACT_DET = "sel_act_det";
 
 
     //KLASA adapter z ustalonym stylem listy umieszczajacy obiekty w liscie
@@ -131,13 +132,9 @@ public class MainActivity extends AppCompatActivity {
 
         String selected_day = MainActivity.sharedPreferences.getString(SEL_DAY, null);
 
-        DatabaseReference DayOfWeekRef2 = FirebaseDatabase.getInstance().getReference("Days");
+        DatabaseReference DayOfWeekRef = FirebaseDatabase.getInstance().getReference("Days");
 
-        final Query dayQuery = DayOfWeekRef2.orderByChild("id");
-
-        DatabaseReference DayOfWeekRef = FirebaseDatabase.getInstance().getReference("Week");
-
-
+        final Query dayQuery = DayOfWeekRef.orderByChild("id");
 
         //pobranie view z xml
         ListOfDays = (ListView)findViewById(R.id.lvMain);
@@ -155,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ActivityDay.class));
                 TextView DayName = view.findViewById(R.id.tvDayName);
                 MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_DAY, DayName.getText().toString()).apply();
+
+
 
 //                switch(position){
 //                    case 0: {

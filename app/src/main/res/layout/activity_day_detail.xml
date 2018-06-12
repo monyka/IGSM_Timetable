@@ -12,7 +12,7 @@
         tools:context=".MainActivity">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/ToolbarDayDetail"
+            android:id="@+id/ToolbarActivityDetail"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/darkblue"
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/ToolbarDayDetail"
+            android:layout_below="@+id/ToolbarActivityDetail"
             android:divider="@null"
             android:dividerHeight="10dp">
         </ListView>
