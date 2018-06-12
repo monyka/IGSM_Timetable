@@ -167,10 +167,12 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 //                System.out.println(activities);
 
                 if(!dataSnapshot.getKey().equals("id")) {
-                    String desc = (String) activities.iterator().next().getValue();
+                    String activityDetails = (String) activities.iterator().next().getKey();
+                    String address = (String) activities.iterator().next().getValue();
                     String hours = (String) activities.iterator().next().getValue();
                     String id = (String) activities.iterator().next().getValue();
                     String place = (String) activities.iterator().next().getValue();
+                    String placeDetails = (String) activities.iterator().next().getValue();
 
                     String key = dataSnapshot.getKey();
 

@@ -20,10 +20,7 @@ import com.google.firebase.database.ChildEventListener;
 
 
 public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback {
-
-
     private GoogleMap mMap;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +45,17 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
          //Add a marker in Sydney and move the camera
         LatLng pw = new LatLng(52.221485, 21.008104);
-        mMap.addMarker(new MarkerOptions().position(pw).title("Politechnika Warszawska")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        LatLng czitt = new LatLng(52.218164, 21.010246);
+        LatLng hostel = new LatLng(52.232979, 21.008104);
+        LatLng museum = new LatLng(52.23180, 21.025404);
+        mMap.addMarker(new MarkerOptions().position(pw).title("Warsaw University of Technology")
+        .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(czitt).title("CZIiTT PW")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(hostel).title("Patchwork Design Hostel")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(museum).title("National Museum in Warsaw")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(pw));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pw, 13));
 
