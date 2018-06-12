@@ -24,40 +24,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 public class ActivityDay extends AppCompatActivity implements ValueEventListener {
 
-    private ListView ListOfActivities;
-    private ArrayList<DayActivity> DayActivitiesArray = new ArrayList<>();
+    private ListView listOfActivities;
+    private ArrayList<DayActivityData> dayActivitiesArray = new ArrayList<>();
 
     private android.support.v7.widget.Toolbar toolbar;
 
-      //klasa użytkownika dla ktorej pozniej tworzone sa jej obiekty - czy jakies dane
-    public class DayActivity{
-        public String activity_name;
-        public String hours;
-        public String place;
-
-
-        public DayActivity(String name, String hometown, String place) {
-            this.activity_name = name;
-            this.hours = hometown;
-            this.place = place;
-        }
-    }
 
     //adapter dla danych Day
-    public class ActivitiesAdapter extends ArrayAdapter<DayActivity> {
-        public ActivitiesAdapter(Context context, ArrayList<DayActivity> users) {
+    public class ActivitiesAdapter extends ArrayAdapter<DayActivityData> {
+        public ActivitiesAdapter(Context context, ArrayList<DayActivityData> users) {
             super(context, 0, users);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
-            DayActivity user = getItem(position);
+            DayActivityData user = getItem(position);
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_day_detail_single_item, parent, false);
@@ -110,7 +98,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
     }
 
     private void setupUIViews(){
-        ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
+        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarActivityDetail);
     }
 
@@ -129,34 +117,32 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
         DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
         //DatabaseReference ActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day).child(selected_activity);
 
-        final Query dayActivityQuery = DayActivitiesData.orderByChild("id");
+        //sortowanie po id
+        final Query DayActivityDataQuery = DayActivitiesData.orderByChild("id");
 
         //lista
-        ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
+        listOfActivities = (ListView)findViewById(R.id.lvDayDetail);
 
         //adapter
-//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mUsername);
-        final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, DayActivitiesArray);
+        final ActivitiesAdapter listOfActivitiesAdapter = new ActivitiesAdapter(this, dayActivitiesArray);
 
         //ustawienie listy do adaptera
-        ListOfActivities.setAdapter(listOfActivitiesAdapter);
+        listOfActivities.setAdapter(listOfActivitiesAdapter);
 
-        ListOfActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listOfActivities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                startActivity(new Intent(ActivityDay.this, ActivityActivityDetails.class));
+                Intent intent = new Intent(ActivityDay.this, ActivityActivityDetails.class);
+                intent.putExtra("activityObject", dayActivitiesArray.get(position));
+                startActivity(intent);
                 TextView actName = view.findViewById(R.id.tvActivityDayDetails);
                 MainActivity.sharedPreferences.edit().putString(MainActivity.SEL_ACT, actName.getText().toString()).apply();
             }
         });
 
-        //sortowanie
-        //TRZEBA ZROBIC COS TAKIEGO JAK selected_day ale dla activity (selected_activity)
-        //Query dayActivies = DayActivitiesData.child("Days").child(selected_day).child(selected_activity).orderByChild("id");
-
         //pobieranie danych z bazy do listy
-        dayActivityQuery.addChildEventListener(new ChildEventListener() {
+        DayActivityDataQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -172,12 +158,14 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
                     String address = (String) activities.iterator().next().getValue();
                     String hours = (String) activities.iterator().next().getValue();
                     String id = (String) activities.iterator().next().getValue();
+                    String lat = (String) activities.iterator().next().getValue();
+                    String lng = (String) activities.iterator().next().getValue();
                     String place = (String) activities.iterator().next().getValue();
                     String placeDetails = (String) activities.iterator().next().getValue();
 
                     String key = dataSnapshot.getKey();
 
-                    DayActivitiesArray.add(new DayActivity(key, hours, place));
+                    dayActivitiesArray.add(new DayActivityData(key, hours, place, placeDetails, activityDetails, address, lat, lng));
                     listOfActivitiesAdapter.notifyDataSetChanged();
                 }
             }
