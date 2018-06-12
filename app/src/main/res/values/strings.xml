@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">IGSM_Timetable</string>
     <string name="title_activity_maps">Map</string>
+    <string name="Showonmap">Show on map</string>
 
     <string-array name="Timetable">
         <item> Monday </item>
