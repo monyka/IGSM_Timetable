@@ -11,11 +11,24 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.app.Dialog;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+
+
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +43,7 @@ public class ActivityActivityDetails extends AppCompatActivity {
 
     private android.support.v7.widget.Toolbar toolbar;
     private CardView cardView;
+    Context context;
 
 
     @Override
@@ -42,19 +56,58 @@ public class ActivityActivityDetails extends AppCompatActivity {
         initToolbar();
         setupCardView();
 
-
+        context = this;
 
         //String dayName = MainActivity.sharedPreferences.getString(MainActivity.SEL_DAY, null);
         String placeDetails = MainActivity.sharedPreferences.getString(MainActivity.SEL_ACT_DET, null);
 
+        Button showOnMapButton = findViewById(R.id.buttonMap);
+        showOnMapButton.setOnClickListener(new View.OnClickListener() {
+                                               public void onClick(View v) {
+                                                   Dialog dialog = new Dialog(context);
+                                                   dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                                   dialog.setContentView(R.layout.dialogmap);
+                                                   dialog.show();
+                                                   GoogleMap googleMap;
+
+
+                                                   MapView mMapView;
+                                                   MapsInitializer.initialize(context);
+
+                                                   mMapView = dialog.findViewById(R.id.mapView);
+                                                   mMapView.onCreate(dialog.onSaveInstanceState());
+                                                   mMapView.onResume();// needed to get the map to display immediately
+                                                   mMapView.getMapAsync(new OnMapReadyCallback() {
+                                                       @Override
+                                                       public void onMapReady(final GoogleMap googleMap) {
+
+//                                                           LatLng coord = new LatLng()
+//                                                           googleMap.addMarker(new MarkerOptions().position(coord).title("")
+//                                                                   .icon(BitmapDescriptorFactory.defaultMarker()));
+//                                                           googleMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
+//                                                           googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 13));
+
+
+//                                                           LatLng posisiabsen = new LatLng(lat, lng); ////your lat lng
+//                                                           googleMap.addMarker(new MarkerOptions().position(posisiabsen).title("Yout title"));
+//                                                           googleMap.moveCamera(CameraUpdateFactory.newLatLng(posisiabsen));
+//                                                           googleMap.getUiSettings().setZoomControlsEnabled(true);
+//                                                           googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+                                                       }
+                                                   });
+
+                                               }
+                                           }
+        );
+
         //TextView activityPlaceDetails = findViewById(R.id.tvActivityDayDetails);
         //activityPlaceDetails.setText(placeDetails);
-    }
 
+    }
 
     private void setupUIViews() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarActivityDetail);
-        }
+    }
 
     private void initToolbar() {
         setSupportActionBar(toolbar);
@@ -62,7 +115,7 @@ public class ActivityActivityDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setupCardView(){
+    private void setupCardView() {
 
         String selected_day = MainActivity.sharedPreferences.getString(MainActivity.SEL_DAY, null);
         String selected_activity = MainActivity.sharedPreferences.getString(MainActivity.SEL_ACT, null);
@@ -91,7 +144,6 @@ public class ActivityActivityDetails extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 System.out.println(dataSnapshot.getKey());
-
             }
 
             @Override
