@@ -111,7 +111,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 
     private void setupUIViews(){
         ListOfActivities = (ListView)findViewById(R.id.lvDayDetail);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarDayDetail);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarActivityDetail);
     }
 
     private void initToolbar(){
@@ -127,7 +127,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
         String selected_activity = MainActivity.sharedPreferences.getString(MainActivity.SEL_ACT, null);
 
         DatabaseReference DayActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day);
-        DatabaseReference ActivitiesDetailsData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day).child(selected_activity);
+        //DatabaseReference ActivitiesData = FirebaseDatabase.getInstance().getReference("Days").child(selected_day).child(selected_activity);
 
         final Query dayActivityQuery = DayActivitiesData.orderByChild("id");
 
@@ -167,10 +167,13 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 //                System.out.println(activities);
 
                 if(!dataSnapshot.getKey().equals("id")) {
-                    String desc = (String) activities.iterator().next().getValue();
+
+                    String activityDetails = (String) activities.iterator().next().getKey();
+                    String address = (String) activities.iterator().next().getValue();
                     String hours = (String) activities.iterator().next().getValue();
                     String id = (String) activities.iterator().next().getValue();
                     String place = (String) activities.iterator().next().getValue();
+                    String placeDetails = (String) activities.iterator().next().getValue();
 
                     String key = dataSnapshot.getKey();
 
