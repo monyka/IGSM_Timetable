@@ -74,10 +74,7 @@ public class ActivityActivityDetails extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
-
 
     private void setupUIViews() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.ToolbarActivityDetail);
@@ -100,23 +97,13 @@ public class ActivityActivityDetails extends AppCompatActivity {
 
 
         final TextView activityPlaceDetails = findViewById(R.id.tvActivityPlaceDetails);
-        final TextView activityName = findViewById(R.id.activityName);
+        final TextView activityPlaceAddress = findViewById(R.id.tvAdressDetails);
+        final TextView activityDetails = findViewById(R.id.tvActivityDetails);
 
-        activityName.setText(dayActivity.activity_name);
         activityPlaceDetails.setText(dayActivity.placeDetails);
-
-//      System.out.println(selected_activity);
-
-
+        activityPlaceAddress.setText(dayActivity.address);
+        activityDetails.setText(dayActivity.activityDetails);
     }
-
-    private  void setupListView(){
-
-
-    }
-
-
-
 
     //powrot do poprzedniego ekarnu
     @Override

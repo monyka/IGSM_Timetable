@@ -154,7 +154,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 
                 if(!dataSnapshot.getKey().equals("id")) {
 
-                    String activityDetails = (String) activities.iterator().next().getKey();
+                    String activityDetails = (String) activities.iterator().next().getValue();
                     String address = (String) activities.iterator().next().getValue();
                     String hours = (String) activities.iterator().next().getValue();
                     String id = (String) activities.iterator().next().getValue();
@@ -165,7 +165,7 @@ public class ActivityDay extends AppCompatActivity implements ValueEventListener
 
                     String key = dataSnapshot.getKey();
 
-                    dayActivitiesArray.add(new DayActivityData(key, hours, place, placeDetails, activityDetails, address, lat, lng));
+                    dayActivitiesArray.add(new DayActivityData(key, hours, place, activityDetails, address, placeDetails, lat, lng));
                     listOfActivitiesAdapter.notifyDataSetChanged();
                 }
             }

@@ -30,7 +30,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:text="Timetable"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
