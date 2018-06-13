@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     //ustalenie wygladu ekranu - toolbaru tytulowego oraz listy z dniami tygodnia
     private void setupUIViews(){
-        toolbar = (Toolbar)findViewById(R.id.ToolbarMain);
+        toolbar = (Toolbar)findViewById(R.id.ToolbarStart);
         //ListView = (ListView)findViewById(R.id.lvMain);
         ListOfDays = (ListView)findViewById(R.id.lvMain);
         sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);

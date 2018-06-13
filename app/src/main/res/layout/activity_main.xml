@@ -12,7 +12,7 @@
         tools:context=".MainActivity">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/ToolbarMain"
+            android:id="@+id/ToolbarStart"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/darkblue"
@@ -25,7 +25,7 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/ToolbarMain"
+            android:layout_below="@+id/ToolbarStart"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
