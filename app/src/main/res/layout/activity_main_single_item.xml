@@ -12,6 +12,8 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingStart="25dp">
+    <!--app:cardCornerRadius="10dp"-->
+
 
     <RelativeLayout
         android:layout_width="match_parent"

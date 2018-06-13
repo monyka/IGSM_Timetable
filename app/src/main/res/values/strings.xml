@@ -142,5 +142,6 @@
         <item>PW</item>
         <item>PW</item>
     </string-array>
+    <string name="title_activity_maps2">Map</string>
 
 </resources>

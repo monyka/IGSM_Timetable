@@ -3,15 +3,23 @@ package com.example.monika.igsm_timetable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ChildEventListener;
+
+
+
 
 public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
 
     @Override
@@ -22,25 +30,37 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
+    ChildEventListener mChildEventListener;
+    DatabaseReference MarkersRef = FirebaseDatabase.getInstance().getReference("Markers");
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mMap = googleMap;
+         //Add a marker in Sydney and move the camera
+        LatLng pw = new LatLng(52.221485, 21.008104);
+        LatLng czitt = new LatLng(52.218164, 21.010246);
+        LatLng hostel = new LatLng(52.232979, 21.008104);
+        LatLng museum = new LatLng(52.23180, 21.025404);
+        mMap.addMarker(new MarkerOptions().position(pw).title("Warsaw University of Technology")
+        .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(czitt).title("CZIiTT PW")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(hostel).title("Patchwork Design Hostel")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.addMarker(new MarkerOptions().position(museum).title("National Museum in Warsaw")
+                .icon(BitmapDescriptorFactory.defaultMarker()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(pw));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pw, 13));
+
+
+
+
     }
 }
