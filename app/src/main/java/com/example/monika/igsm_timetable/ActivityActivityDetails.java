@@ -70,7 +70,7 @@ public class ActivityActivityDetails extends AppCompatActivity {
         //String dayName = MainActivity.sharedPreferences.getString(MainActivity.SEL_DAY, null);
         String placeDetails = MainActivity.sharedPreferences.getString(MainActivity.SEL_ACT_DET, null);
 
-        Button showOnMapButton = findViewById(R.id.buttonMap);
+        Button showOnMapButton = findViewById(R.id.buttonShowOnMap);
         showOnMapButton.setOnClickListener(new View.OnClickListener() {
                                                public void onClick(View v) {
                                                    Dialog dialog = new Dialog(context);
@@ -90,12 +90,12 @@ public class ActivityActivityDetails extends AppCompatActivity {
                                                        @Override
                                                        public void onMapReady(final GoogleMap googleMap) {
 
-//                                                           LatLng coord = new LatLng()
-//                                                           googleMap.addMarker(new MarkerOptions().position(coord).title("")
-//                                                                   .icon(BitmapDescriptorFactory.defaultMarker()));
-//                                                           googleMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
-//                                                           googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 13));
-
+                                                           LatLng coord = new LatLng(Double.parseDouble(dayActivity.lat), Double.parseDouble(dayActivity.lng));
+                                                            googleMap.addMarker(new MarkerOptions().position(coord).title(dayActivity.place)
+                                                                 .icon(BitmapDescriptorFactory.defaultMarker()));
+                                                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
+                                                             googleMap.getUiSettings().setZoomControlsEnabled(true);
+                                                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 13));
 
 //                                                           LatLng posisiabsen = new LatLng(lat, lng); ////your lat lng
 //                                                           googleMap.addMarker(new MarkerOptions().position(posisiabsen).title("Yout title"));
@@ -159,9 +159,9 @@ public class ActivityActivityDetails extends AppCompatActivity {
 
 
         final TextView activityPlaceDetails = findViewById(R.id.tvActivityPlaceDetails);
-        final TextView activityName = findViewById(R.id.activityName);
-
-        activityName.setText(dayActivity.activity_name);
+//        final TextView activityName = findViewById(R.id.activityName);
+//
+//        activityName.setText(dayActivity.activity_name);
         activityPlaceDetails.setText(dayActivity.placeDetails);
 
 //      System.out.println(selected_activity);
