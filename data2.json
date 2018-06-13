@@ -1,0 +1,313 @@
+{
+	"message": "Room change \n Lectures will be in 4.05",
+	"mustSee": {
+		"Foksal Gallery": {
+			"lattitude": 52.2342466,
+			"longitude": 21.0238839,
+			"type": "gallery"
+		},
+		"National Museum ": {
+			"lattitude": 52.2260819,
+			"longitude": 21.0247987,
+			"type": "museum "
+		}
+	},
+	"Days": {
+		"Friday (28th June)": {
+			"Breakfast": {
+				"address": "5/7 Chmielna Street",
+				"hours": "8:00 AM - 10:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Diner": {
+				"hours": "03:00 PM - 05:00 PM",
+				"id": "3",
+				"place": "Main Canteen",
+				"placeDetails": "Main Canteen, 1st floor",
+				"address": "2 Rektorska Street",
+				"activityDetails": {
+					"1": "Dorsz smażony, ziemniaki, sałatka z kapusty kiszonej",
+					"2": "Pierogi z truskawkami",
+					"3": "Spaghetti ze szpinakiem"
+				}
+			},
+			"General Assembly": {
+				"hours": "11:00 AM - 02:00 PM",
+				"id": "2",
+				"place": "CZIiTT PW",
+				"placeDetails": "CZIiTT PW, Floor 4, Room 4.05",
+				"address": "4 Rektorska Street",
+				"activityDetails": {
+					"1": "General Assembly"
+				}
+			},
+			"Grand Ball": {
+				"hours": "06:00 PM - 04:00 AM",
+				"id": "4",
+				"place": "Physics Building PW",
+				"placeDetails": "Physics Building PW, Main Auditorium",
+				"address": "75 Koszykowa Street",
+				"activityDetails": {
+					"1": "Dres code: elegant"
+				}
+
+			},
+			"id": "5"
+		},
+		"Monday (24th June)": {
+			"Breakfast": {
+				"hours": "8:00 AM - 10:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Diner": {
+				"hours": "03:00 PM - 05:00 PM",
+				"id": "4",
+				"place": "Central Canteen",
+				"startTime": "",
+				"placeDetails": "Main Canteen, 1st floor",
+				"address": "2 Rektorska Street",
+				"activityDetails": {
+					"1": "Kotlet schabowy, ziemniaki, mizeria",
+					"2": "Gołąbki wegańskie",
+					"3": "Spaghetti Bolognese"
+				}
+			},
+			"International Evening": {
+				"hours": "08:00 PM - 03:00 AM",
+				"id": "5",
+				"place": "Europe Club",
+				"startTime": "",
+				"placeDetails": "Europe Club",
+				"address": "1 Ulica Street",
+				"activityDetails": {
+					"1": "Remeber to take your country's flag and local specialities"
+				}
+			},
+			"Lecture": {
+				"hours": "11:00 AM - 02:00 PM",
+				"id": "3",
+				"place": "CZIiTT",
+				"startTime": "",
+				"placeDetails": "CZIiTT PW, Floor 1, Room 1.01",
+				"address": "4 Rektorska Street",
+				"activityDetails": {
+					"Hexagon S&I": {
+						"hours": "12:00 PM",
+						"id": "1",
+						"place": "CZIiTT",
+						"startTime": "11:00 AM"
+					},
+					"Esri Polska": {
+						"hours": "1:00 PM",
+						"id": "2",
+						"place": "CZIiTT",
+						"startTime": "12:00 PM"
+					},
+					"Geomax": {
+						"hours": "2:00 PM",
+						"id": "2",
+						"place": "CZIiTT",
+						"startTime": "1:00 PM"
+					}
+				}
+
+			},
+			"Opening Ceremony": {
+				"hours": "11:00 AM - 02:00 PM",
+				"id": "2",
+				"place": "CZIiTT",
+				"startTime": "",
+				"placeDetails": "CZIiTT PW, Floor 1, Room 1.01",
+				"address": "4 Rektorska Street",
+				"activityDetails": {
+					"1": "We will officially welcome you in Warsaw!!!"
+				}
+			},
+			"id": "1"
+		},
+		"Saturday (29th June)": {
+			"Breakfast": {
+				"hours": "8:00 AM - 10:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Check out": {
+				"hours": "11:00 AM - 01:00 PM",
+				"id": "2",
+				"place": "Hostel",
+				"startTime": "",
+				"placeDetails": "Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "Time to say goodbye :("
+				}
+			},
+			"id": "6"
+		},
+		"Sunday (23th June)": {
+			"Check in": {
+				"hours": "11:00 AM - 6:00 PM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "",
+				"placeDetails": "Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "Welcome everyone!"
+				}
+			},
+			"Welcome Party": {
+				"hours": "8:00 PM - 2:00 PM",
+				"id": "2",
+				"place": "Niebo Club",
+				"startTime": "",
+				"placeDetails": "Niebo Club",
+				"address": "21 Nowy Świat Street",
+				"activityDetails": {
+					"1": "Welcome party!"
+				}
+			},
+			"id": "0"
+		},
+		"Thursday (27th June)": {
+			"Breakfast": {
+				"hours": "8:00 AM - 10:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Local Evening": {
+				"hours": "05:00 PM - 02:00 AM",
+				"id": "3",
+				"place": "Local bar",
+				"startTime": "",
+				"placeDetails": "Local bar",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "You will try some traditional Polish food and drinks"
+				}
+			},
+			"Sports Day": {
+				"hours": "04:00 PM - 12:00 PM",
+				"id": "2",
+				"place": "Monta Beach",
+				"startTime": "",
+				"placeDetails": "Monta Beach",
+				"address": "Zaruskiego Street",
+				"activityDetails": {
+					"1": "Sport time :)"
+				}
+			},
+			"id": "4"
+		},
+		"Tuesday (25th June)": {
+			"Breakfast": {
+				"hours": "10:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "8:00 AM",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Diner": {
+				"hours": "04:00 PM",
+				"id": "3",
+				"place": "Central Canteen",
+				"startTime": "06:00 PM",
+				"placeDetails": "Main Canteen, 1st floor",
+				"address": "2 Rektorska Street",
+				"activityDetails": {
+					"1": "Pierogi z mięsem",
+					"2": "Falafel z frytkami i sałatką",
+					"3": "Kotel mielony z ziemniakami i buraczkami"
+				}
+			},
+			"Museum": {
+				"hours": "03:00 PM",
+				"id": "2",
+				"place": "Copernicus Science Center",
+				"startTime": "12:00 PM",
+				"placeDetails": "Copernicus Science Center",
+				"address": "20 Wybrzeże Kościuszkowskie Street",
+				"activityDetails": {
+					"1": "It's time to get familiar with scientific stuff"
+				}
+			},
+			"Party": {
+				"hours": "03:00 AM",
+				"id": "4",
+				"place": "Remont Club",
+				"startTime": "08:00 PM",
+				"placeDetails": "Remont Club",
+				"address": "12a Waryńskiego Street",
+				"activityDetails": {
+					"1": "Have fun! Your own alcohol is not allowed in the club"
+				}
+			},
+			"id": "2"
+		},
+		"Wednesday (26th June)": {
+			"Breakfast": {
+				"hours": "9:00 AM",
+				"id": "1",
+				"place": "Hostel",
+				"startTime": "7:00 AM",
+				"placeDetails": "Kitchens in Patchwork Hostel",
+				"address": "5/7 Chmielna Street",
+				"activityDetails": {
+					"1": "kanapka z szynką",
+					"2": "kanapka z serem",
+					"3": "jogurt z muesli"
+				}
+			},
+			"Local Trip": {
+				"hours": "01:00 AM",
+				"id": "2",
+				"place": "Sierpc",
+				"startTime": "10:00 AM",
+				"placeDetails": "Masovian museum",
+				"address": "64 Gabriela Narutowicza Street,Sierpc",
+				"activityDetails": {
+					"1": "All day in Polish Village"
+				}
+			},
+			"id": "3"
+		}
+	}
+}

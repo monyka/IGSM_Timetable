@@ -1,0 +1,148 @@
+{
+  "Days" : {
+    "Friday" : {
+      "Breakfast" : {
+        "desc" : "jajko",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Diner" : {
+        "desc" : "kotlet",
+        "hours" : "16:00 - 18:00",
+        "place" : "Main canteen"
+      },
+      "General Assembly" : {
+        "desc" : "GA",
+        "hours" : "11:00 - 17:00",
+        "place" : "CZIiTT"
+      },
+      "Party" : {
+		"desc" : "welcome party",
+        "hours" : "20:00 - 3:00",
+        "place" : "Niebo club"
+      }
+    },
+    "Monday" : {
+      "Breakfast" : {
+		"desc" : "jajko",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Freetime" : {
+		"desc" : "eat icecream",
+        "hours" : "15:00 - 20:00",
+        "place" : "Anywhere"
+      },
+      "Lecture" : {
+		"desc" : "Lectures with Hexagon",
+        "hours" : "11:00 - 15:00",
+        "place" : "CZIiTT"
+      },
+      "Party" : {
+		"desc" : "Polish party",
+        "hours" : "20:00 - 3:00",
+        "place" : "Niebo club"
+      }
+    },
+    "Saturday" : {
+      "Breakfast" : {
+		"desc" : "omlet",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Diner" : {
+		"desc" : "spaghetti",
+        "hours" : "16:00 - 18:00",
+        "place" : "Main canteen"
+      },
+      "Local day" : {
+		"desc" : "games and local food",
+        "hours" : "11:00 - 17:00",
+        "place" : "Pole mokotowskie"
+      },
+      "Party" : {
+		"desc" : "party",
+        "hours" : "20:00 - 3:00",
+        "place" : "Niebo club"
+      }
+    },
+    "Sunday" : {
+      "Breakfast" : {
+		"desc" : "kanapki",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Check out" : {
+		"desc" : "Time to say goodbye",
+        "hours" : "11:00 - 13:00",
+        "place" : "Hostel"
+      }
+    },
+    "Thursday" : {
+      "Breakfast" : {
+		"desc" : "muesli",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Diner" : {
+		"desc" : "pizza",
+        "hours" : "16:00 - 18:00",
+        "place" : "Main canteen"
+      },
+      "Party" : {
+		"desc" : "party",
+        "hours" : "20:00 - 3:00",
+        "place" : "Niebo club"
+      },
+      "Sports Day" : {
+		"desc" : "sports at the beach",
+        "hours" : "11:00 - 17:00",
+        "place" : "Monta Beach"
+      }
+    },
+    "Tuesday" : {
+      "Breakfast" : {
+		"desc" : "jajko",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Diner" : {
+		"desc" : "gołąbki",
+        "hours" : "16:00 - 18:00",
+        "place" : "PW"
+      },
+      "Museum" : {
+		"desc" : "Copernic Museum",
+        "hours" : "11:00 - 15:00",
+        "place" : "Copernic Museum"
+      },
+      "Party" : {
+		"desc" : "paaarty",
+        "hours" : "20:00 - 3:00",
+        "place" : "Niebo club"
+      }
+    },
+    "Wednesday" : {
+      "Breakfast" : {
+		"desc" : "jajko",
+        "hours" : "9:00 - 10:00",
+        "place" : "Hostel"
+      },
+      "Trip" : {
+		"desc" : "National Museum",
+        "hours" : "11:00 - 23:00",
+        "place" : "Sieprc"
+      }
+    }
+  },
+ 
+  "Week" : {
+    "01" : "Monday",
+    "02" : "Tuesday",
+    "03" : "Wednesday",
+    "04" : "Thursday",
+    "05" : "Friday",
+    "06" : "Saturday",
+    "07" : "Sunday"
+  }
+}
