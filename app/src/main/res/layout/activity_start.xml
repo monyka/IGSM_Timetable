@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/darkblue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -31,9 +31,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="International Geodetic Students Meeting"
+        android:text="@string/igsm"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.678"
@@ -45,8 +45,11 @@
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="259dp"
-        app:srcCompat="@drawable/igsmm"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/igsmm" />
 
 </android.support.constraint.ConstraintLayout>
